@@ -15,4 +15,4 @@ $ python scripts/main.py
 Then web page wil be launched.
 
 ## Output
-![simplescreenrecorder-2024-02-06_09 26 58](https://github.com/Jake110ii/Img2silhouette/assets/42618491/0c466064-6d96-48ff-a6b8-dedfe0f1907a)
+![demo](https://github.com/Jake110ii/img2removeback/assets/42618491/f1220996-7499-4528-a655-874f5d885b71)

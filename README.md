@@ -15,4 +15,5 @@ $ python scripts/main.py
 Then web page wil be launched.
 
 ## Output
-![demo](https://github.com/Jake110ii/img2removeback/assets/42618491/f1220996-7499-4528-a655-874f5d885b71)
+![demo](https://github.com/Jake110ii/img2removeback/assets/42618491/1e1c423a-898f-437b-ab9c-80eb527600ef)
+

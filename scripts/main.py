@@ -32,7 +32,6 @@ def remove_background(files, progress=gr.Progress(track_tqdm=True)):
         image = Image.open(file[0])
         image = remove(image)
         image = create_centered_image(image)
-        #import pdb; pdb.set_trace()
         image = utils.crop_and_resize(image)
         output_images.append(image)
 

@@ -15,12 +15,24 @@ def display_images(files):
     return images
 
 
+def create_centered_image(image):
+    width, height = 2048, 1024
+    background = Image.new('RGBA', (width, height), "white")
+    x = (width - image.width) // 2
+    y = (height - image.height) // 2
+    background.paste(image, (x, y), image)
+
+    return background
+
+
 def remove_background(files, progress=gr.Progress(track_tqdm=True)):
     output_images = []
 
     for file in progress.tqdm(files):
         image = Image.open(file[0])
         image = remove(image)
+        image = create_centered_image(image)
+        #import pdb; pdb.set_trace()
         image = utils.crop_and_resize(image)
         output_images.append(image)
 
@@ -35,8 +47,9 @@ def make_save_folder(output_folder='output'):
 
 def save_images(inputs):
    save_folder = make_save_folder()
-   for img, params in inputs:
-       img.save(os.path.join(save_folder, f'{img}.png'))
+   for i, (img,params) in enumerate(inputs):
+       print(params, i)
+       img.save(os.path.join(save_folder, f'{i:04d}.png'))
    return f'Saved to "{save_folder}"'
 
 
@@ -68,5 +81,5 @@ with gr.Blocks(theme='abidlabs/banana') as demo:
 
 
 demo.queue()
-demo.launch(server_port=7863)
+demo.launch(server_port=7800)
 

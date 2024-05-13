@@ -3,6 +3,25 @@ import numpy as np
 import cv2
 
 
+def create_centered_image(image):
+    width, height = 2048*2, 1024*2
+    background = Image.new('RGBA', (width, height), "white")
+    x = (width - image.width) // 2
+    y = (height - image.height) // 2
+    background.paste(image, (x, y), image)
+    return background
+
+
+def resize_image(image):
+    if image.width > 2048:
+        aspect_ratio = image.width / image.height
+        new_width = 2048
+        new_height = int(new_width / aspect_ratio)
+        image = image.resize((new_width, new_height), Image.ANTIALIAS)
+
+    return image
+
+
 def pil2cv(pil_image):
     image_np = np.array(pil_image)
     image_cv = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
@@ -27,13 +46,6 @@ def resize(pil_image, width, height):
     new_size = (width, height)
     cropped_image = image.resize(new_size)
     return cropped_image
-
-
-def add_white_back(pil_image):
-    img = pil_image.convert("RGBA")
-    background = Image.new('RGBA', img.size, "WHITE")
-    background.paste(img, (0, 0), img)
-    return background.convert("RGB")
 
 
 def crop_and_resize(pil_image, size):

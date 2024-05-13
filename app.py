@@ -7,6 +7,7 @@ import io
 from datetime import datetime
 import os
 from utils import utils
+from utils.util import Imgcrop
 from tqdm import tqdm
 import output
 
@@ -15,32 +16,16 @@ def display_images(files):
     images = [Image.open(file) for file in files]
     return images
 
-def resize_image(image):
-    if image.width > 2048:
-        aspect_ratio = image.width / image.height
-        new_width = 2048
-        new_height = int(new_width / aspect_ratio)
-        image = image.resize((new_width, new_height), Image.ANTIALIAS)
-
-    return image
-
-def create_centered_image(image):
-    width, height = 2048*2, 1024*2
-    background = Image.new('RGBA', (width, height), "white")
-    x = (width - image.width) // 2
-    y = (height - image.height) // 2
-    background.paste(image, (x, y), image)
-    return background
-
 
 def remove_background(files, size, progress=gr.Progress(track_tqdm=True)):
     output_images = []
+    imgcrop = Imgcrop(size)
     for file in progress.tqdm(files):
         image = Image.open(file[0])
-        image = resize_image(image)
+        image = imgcrop.resize_image(image)
         image = remove(image)
-        image = create_centered_image(image)
-        image = utils.crop_and_resize(image, size)
+        image = imgcrop.create_centered_image(image)
+        image = imgcrop.crop_and_resize(image, size)
         output_images.append(image)
 
     return [output_images, gr.Button(f"Save images")]

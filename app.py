@@ -6,7 +6,6 @@ from rembg import remove
 import io
 from datetime import datetime
 import os
-from utils import utils
 from utils.util import Imgcrop
 from tqdm import tqdm
 import output

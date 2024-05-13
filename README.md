@@ -10,7 +10,7 @@ $ pip install -r requirements.txt
 ## Run the command line
 Run this command
 ```bash
-$ python main.py
+$ python app.py
 ```
 Then web page wil be launched.
 

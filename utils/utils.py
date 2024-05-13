@@ -22,9 +22,9 @@ def cut_white(pil_image, x1, x2):
     return cropped_image
 
 
-def resize(pil_image):
+def resize(pil_image, width, height):
     image = pil_image
-    new_size = (1024, 512)
+    new_size = (width, height)
     cropped_image = image.resize(new_size)
     return cropped_image
 
@@ -36,8 +36,10 @@ def add_white_back(pil_image):
     return background.convert("RGB")
 
 
-def crop_and_resize(pil_image):
-    pil_image = add_white_back(pil_image)
+def crop_and_resize(pil_image, size):
+    width = int(size.split('x')[0])
+    height = int(size.split('x')[1])
+
     black_pixels = find_other_from_white(pil_image)
 
     x1 = [np.array(black_pixels)[:, 1].min(), np.array(black_pixels)[:, 0].min()]
@@ -51,10 +53,15 @@ def crop_and_resize(pil_image):
     x1[0] = int(x1[0])-1
     x2[0] = int(x2[0])
     center_y = (x2[1]+x1[1])/2
-    x1[1] = int(center_y - length/4)
-    x2[1] = int(center_y + length/4)
+    
+    if width == height:
+        division_num = 2
+    else:
+        division_num = 4
+        
+    x1[1] = int(center_y - length/division_num)
+    x2[1] = int(center_y + length/division_num)
     pil_image = cut_white(pil_image, x1, x2)
-    pil_image = resize(pil_image)
-    pil_image = add_white_back(pil_image)    
+    pil_image = resize(pil_image, width, height)
 
     return pil_image

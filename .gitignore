@@ -1,2 +1,4 @@
-output/
-scripts/sample/_*
+output/*
+!output/2024-05-12-214942
+scripts/sample/*
+!script/sample/sample*

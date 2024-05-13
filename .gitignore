@@ -1,4 +1,5 @@
 output/*
 !output/2024-05-12-214942
+!output/__init__.py
 scripts/sample/*
 !script/sample/sample*
